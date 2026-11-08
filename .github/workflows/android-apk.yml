@@ -24,10 +24,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Accept Android SDK licenses and install platform
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-31" "build-tools;31.0.0"
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+
+      - name: Install Android 31 platform
+        run: sdkmanager "platforms;android-31" "build-tools;31.0.0"
 
       - name: Build debug APK
         working-directory: MockingBird
